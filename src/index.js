@@ -103,8 +103,8 @@ import './index.css';
 
       const moves = history.map((step, move) => {
         const desc = move ?
-          'Przejdź do ruchu #' + move + " coords: " + coordinates[move-1]:
-          'Przejdź na początek gry';
+          'Go to move #' + move + " coordinatess: " + coordinates[move-1]:
+          'Go to the beginning of the game';
         return (
           <li key={move}>
             <button onClick={() => this.jumpTo(move)}>{desc}</button>
@@ -114,7 +114,7 @@ import './index.css';
 
       let status;
       if(winner) {
-        status = 'Wygrywa: ' + winner;
+        status = 'Winner: ' + winner;
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }

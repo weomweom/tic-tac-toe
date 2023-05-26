@@ -103,7 +103,7 @@ import './index.css';
 
       const moves = history.map((step, move) => {
         const desc = move ?
-          'Go to move #' + move + " coordinatess: " + coordinates[move-1]:
+          'Go to move #' + move + " coordinates: " + coordinates[move-1]:
           'Go to the beginning of the game';
         return (
           <li key={move}>

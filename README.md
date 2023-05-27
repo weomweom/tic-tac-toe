@@ -8,4 +8,4 @@
  - The last move is **bolded**
  - Winning combo has a $\color{Lightgreen}green$ background
 
-https://github.com/weomweom/tik-tak-toe/assets/95056603/05355053-61d8-495e-b513-e04e4260ae6f
+https://github.com/weomweom/tik-tak-toe/assets/95056603/c50e6b1e-0ddc-42a0-a1eb-e79aff5aae48

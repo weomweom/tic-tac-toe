@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
   function Square(props) {
+    const squareStyle = {fontWeight: props.isLastMove ? 'bold' : 'normal', backgroundColor: props.isWinningCombo ? '#62ce62' : 'white'};
       return (
         <button 
           className="square" 
           onClick = {props.onClick}
+          style = {squareStyle}
         >
           {props.value}
         </button>
@@ -15,14 +17,29 @@ import './index.css';
   
   class Board extends React.Component {
     renderSquare(i) {
+      const lastMove = this.props.lastMove;
+      const isLastMove = lastMove === i;
+
+      const winningCombo = this.props.winningCombo;
+      //how to rewrite using the map()?
+      //if(winningCombo) {isWinningCombo.map((combo) => i === combo).includes(true)};
+      let isWinningCombo;
+      if(winningCombo) {
+      for(let j = 0; j < winningCombo.length; j++)
+        if (i === winningCombo[j])
+          isWinningCombo = true;
+      }
+
       return (<Square 
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        isLastMove={isLastMove}
+        isWinningCombo={isWinningCombo}
         />);
     }
   
     render() {
-      return (
+      /*return (
         <div>
           <div className="board-row">
             {this.renderSquare(0)}
@@ -39,6 +56,19 @@ import './index.css';
             {this.renderSquare(7)}
             {this.renderSquare(8)}
           </div>
+        </div>
+      );*/
+
+      // !!! the for loop doesn't work like this here
+      return (
+        <div>
+          {[0,1,2].map((row) => (
+            <div className='board-row'>
+              {[0,1,2].map((column) => (
+                this.renderSquare(row*3 + column)
+              ))}
+            </div>
+          ))}
         </div>
       );
     }
@@ -77,7 +107,7 @@ import './index.css';
           stepNumber:history.length,
           xIsNext: !this.state.xIsNext, 
           coords: coordinates,
-          lastMove: 'bold',
+          lastMove: i,
         });
       }
 
@@ -97,8 +127,16 @@ import './index.css';
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
-      const winner = calculateWinner(current.squares);
 
+      const winnerInfo = calculateWinner(current.squares);
+      let winner = undefined;
+      let winningCombo = undefined;
+      if(winnerInfo){
+        winner = winnerInfo[0];
+        winningCombo = winnerInfo.slice(1);
+      }
+        
+      const lastMove = this.state.lastMove;
       const coordinates = this.state.coords;
 
       const moves = history.map((step, move) => {
@@ -112,9 +150,12 @@ import './index.css';
         );
       });
 
+      const stepNumber = this.state.stepNumber;
       let status;
       if(winner) {
         status = 'Winner: ' + winner;
+      } else if(stepNumber==9){
+        status = 'Draw!';
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
@@ -125,6 +166,8 @@ import './index.css';
             <Board 
                 squares={current.squares}
                 onClick={(i) => this.handleClick(i)}
+                lastMove={lastMove}
+                winningCombo={winningCombo}
             />
           </div>
           <div className="game-info">
@@ -150,8 +193,8 @@ import './index.css';
 
     for(let i = 0; i < lines.length; i++){
         const [a,b,c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { 
+          return [squares[a],a,b,c];
         }
     }
   }

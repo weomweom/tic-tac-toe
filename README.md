@@ -4,17 +4,6 @@
  - Movement history is stored and listed next to the game panel
  - You can go back to any step at any time
  - Step coordinates are printed as (row, column)
- - Shows who is taking the next step
- - Shows the winner
-
-# TODO
-
-~~1. Wyświetl w historii współrzędne dla każdego z ruchów w formacie (wiersz, kolumna).~~
-
-2. Zastosuj pogrubienie na aktualnie wyświetlanym elemencie listy ruchów.
-
-4. Przepisz komponent Board w taki sposób, aby wyświetlić wszystkie pola za pomocą dwóch pętli, zamiast jawnie je podawać w kodzie.
-
-6. Gdy któryś z graczy wygra, podświetl trzy pola, które zapewniły zwycięstwo.
-
-8. Jeśli gra zakończy się z powodu braku możliwych ruchów, wyświetl odpowiednią wiadomość.
+ - Shows who is taking the next step, the winner or that it's a draw!
+ - The last move is bolded
+ - Winning combo has a green background

@@ -1,4 +1,4 @@
-# TikTakToe
+# TicTacToe
  A game for two people written for practice React.js 🤠
  
  - Movement history is stored and listed next to the game panel
